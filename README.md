@@ -47,8 +47,8 @@ docker run -it --rm \
 
 * If you know what you're doing install the plugin into the same python environment like `certbot`. In any other case follow the `Docker` approach above:
 ```sh
-git clone https://github.com/schubc/certbot-dns-namecheap.git
-pip install certbot-dns-namecheap/
+git clone https://github.com/schubc/certbot_dns_namecheap.git
+pip install certbot_dns_namecheap/
 ```
 * Check that `certbot` discovers the plugin:
 ```sh
