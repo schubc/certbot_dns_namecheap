@@ -9,7 +9,7 @@ from certbot import interfaces
 from certbot.plugins import dns_common
 from certbot.plugins import dns_common_lexicon
 
-from urllib2 import urlopen
+from urllib.request import urlopen
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,8 @@ class Authenticator(dns_common.DNSAuthenticator):
 
 class ncProvider(namecheap.Provider):
     def authenticate(self):
-        self.domain = self.options['domain']
+        if hasattr(self, 'options'):  # Only for Lexicon 2.x
+            self.domain = self.options['domain']
         super(ncProvider, self).authenticate()
 
 class _NamecheapLexiconClient(dns_common_lexicon.LexiconClient):
