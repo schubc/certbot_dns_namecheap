@@ -1,0 +1,11 @@
+version: '3'
+services:
+  certbot-dns-namecheap:
+    build:
+       context: .
+       args:                                                                     
+         - CERTBOT_TAG=v0.40.1
+    volumes:
+      - ./out/certs:/etc/letsencrypt
+      - ./out/logs:/var/log/letsencrypt
+      - ../namecheap.ini:/namecheap.ini

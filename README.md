@@ -26,17 +26,36 @@ The path to this file can be provided by using the `--certbot_dns_namecheap:dns-
 
 ## Docker
 
-* **Recommended usage**. Create the credentials file and 2 folders for the certificates and logs and run:
+### Docker-compose
+
+* **Recommended usage**. Create the credentials file in the parent directory (or adapt docker-compose.yml mount endpoint) run:
+```sh
+docker-compose run certbot-dns-namecheap  certonly \
+  --non-interactive  -a certbot-dns-namecheap:dns-namecheap \
+  --certbot-dns-namecheap:dns-namecheap-credentials=/namecheap.ini \
+  --agree-tos \
+  --agree-tos \
+  --email "your@mail.com" \
+  -d *.example.com \
+  --test-cert
+```
+
+* After a successful run, remove the last parameter `--test-cert` which enabled [staging server](https://letsencrypt.org/docs/staging-environment/) and run again.
+
+### Image from docker hub
+
+* Create the credentials file and 2 folders for the certificates and logs and run:
 ```sh
 docker run -it --rm \
-  -v $(pwd)/certs:/etc/letsencrypt \
-  -v $(pwd)/logs:/var/log/letsencrypt \
-  -v $(pwd)/namecheap.ini:/namecheap.ini \
+  -v $(pwd)/out/certs:/etc/letsencrypt \
+  -v $(pwd)/out/logs:/var/log/letsencrypt \
+  -v $(pwd)/../secretpath/namecheap.ini:/namecheap.ini \
   schubc/certbot-dns-namecheap certonly \
+  --non-interactive \
   -a certbot-dns-namecheap:dns-namecheap \
   --certbot-dns-namecheap:dns-namecheap-credentials=/namecheap.ini \
   --agree-tos \
-  -email "your@mail.com" \
+  --email "your@mail.com" \
   -d example.com \
   --test-cert
 ```
@@ -60,7 +79,7 @@ certbot certonly \
   -a certbot-dns-namecheap:dns-namecheap \
   --certbot-dns-namecheap:dns-namecheap-credentials=/namecheap.ini \
   --agree-tos \
-  -email "your@mail.com" \
+  --email "your@mail.com" \
   -d example.com \
   --test-cert
   ```

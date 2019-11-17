@@ -1,4 +1,5 @@
-FROM certbot/certbot
+ARG CERTBOT_TAG=latest
+FROM certbot/certbot:${CERTBOT_TAG}
 
 COPY . src/certbot-dns-namecheap
 
